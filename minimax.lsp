@@ -21,27 +21,32 @@ Functions called:
               predicate that returns T if the current position has reached
               the desired search depth, NIL otherwise.
 
-          (move-generator position) -
+          (generate-successors position color) -
               generates successors to the position.
 
-          (static position) -
+          (static position color) -
               applies the static evaluation function to the position.
 
           Note: these functions may need additional arguments.
 |#
 
-(defun minimax (position depth)
+(load 'static.lsp               )
+(load 'generate-successors.lsp  )
+(load 'deep-enough.lsp          )
+(load 'swap-color.lsp           )
+
+(defun minimax (position depth color)
 
     ; if we have searched deep enough, or there are no successors,
     ; return position evaluation and nil for the path
-    (if (or (deepenough depth) (null (move-generator position)))
-        (list (static position) nil)
+    (if (or (deepenough depth) (null (generate-successors position color)))
+        (list (static position color) nil)
 
         ; otherwise, generate successors and run minimax recursively
         (let
             (
                 ; generate list of sucessor positions
-                (successors (move-generator position))
+                (successors (generate-successors position color))
 
                 ; initialize current best path to nil
                 (best-path nil)
@@ -58,7 +63,10 @@ Functions called:
             (dolist (successor successors)
 
                 ; perform recursive DFS exploration of game tree
-                (setq succ-value (minimax successor (1- depth)))
+                (setq succ-value 
+                      (minimax successor 
+                               (1- depth) 
+                               (swap-color color)) )
 
                 ; change sign every ply to reflect alternating selection
                 ; of MAX/MIN player (maximum/minimum value)

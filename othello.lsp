@@ -1,5 +1,4 @@
 ;------------- load files -------------
-(load 'generate-successors)
 (load 'minimax)
 (load 'test-list)
 
