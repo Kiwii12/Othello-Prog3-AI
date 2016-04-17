@@ -30,6 +30,9 @@ Functions called:
           Note: these functions may need additional arguments.
 |#
 
+(load 'static.lsp)
+(load 'generate-successors.lsp)
+
 (defun minimax (position depth)
 
     ; if we have searched deep enough, or there are no successors,
