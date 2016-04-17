@@ -64,7 +64,7 @@ Functions called:
 
                 ; perform recursive DFS exploration of game tree
                 (setq succ-value 
-                      (minimax successor 
+                      (minimax (car successor) 
                                (1- depth) 
                                (swap-color color)) )
 

@@ -87,6 +87,15 @@
 (defun make-move (position player ply)
     ;ai should make its move
 	;setup, then call minimax
+    (let (row column answer newPosition)
+         (print-position position)
+         (setf answer (minimax position ply player))
+         (setf row (nth 1 (nth 0 (cadr answer))))
+         (setf column (nth 2 (nth 0 (cadr answer))))
+         (setf newPosition (do-move position player row column))
+         (print-position newPosition)
+         newPosition
+    )
 )
 
 (defun can-move (boardState color)
@@ -207,7 +216,7 @@
 					)
 					(when (not (eq player turn))
 					    ;AI's turn
-					    (make-move boardState turn 4)
+					    (setf boardState (make-move boardState turn 4))
 					)
 				)
 			)
