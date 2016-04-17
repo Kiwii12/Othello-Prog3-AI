@@ -15,17 +15,43 @@
                     - W W W W B - -
                     - - - - - - - -
                     - - - - - - - -) )
+
+(setf endgame-list '(B B B B B B W W
+                     B B B W W W W B
+                     W B B W W W W W
+                     W B W B W W W W
+                     W W W W B W B W
+                     B W W W W B B W
+                     B W W W W B B W
+                     B W W W W B B W) )
 					
-(defun print-position (position)
-    (let ((i 0))
-	    (format t "~%")
-        (dotimes (j 8)
-            (dotimes (k 8)
-			    (format t " ")
-		        (prin1 (nth i position))
-				(setf i (1+ i))
-		    )
-			(format t "~%")
-        )
-	)
-)
+;black can move, white can not
+(setf test-list1 '(B B B B B B W W
+                   B B B W W W W -
+                   W B B W W W W W
+                   W B W B W W W W
+                   W W W W B W B W
+                   B W W W W B B W
+                   B W W W W B B W
+                   B W W W W B B W) )
+					
+;either color can move
+(setf test-list2 '(B B B B B B W W
+                   - B B W W W W B
+                   W B B W W W W W
+                   W B W B W W W W
+                   W W W W B W B W
+                   W W W W W B B W
+                   B W W W W B B W
+                   B W W W W B B W) )
+					
+;white can move, black can not
+(setf test-list3 '(B B B B B B W W
+                   - B B W W W W B
+                   W B B W W B B B
+                   W B W B B B B B
+                   W W B B B B B B
+                   W W B B B B B B
+                   W W B B B B B B
+                   W W B B B B B B) )
+					
