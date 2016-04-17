@@ -30,9 +30,10 @@ Functions called:
           Note: these functions may need additional arguments.
 |#
 
-(load 'static.lsp)
-(load 'generate-successors.lsp)
-(load 'deep-enough.lsp)
+(load 'static.lsp               )
+(load 'generate-successors.lsp  )
+(load 'deep-enough.lsp          )
+(load 'swap-color.lsp           )
 
 (defun minimax (position depth color)
 
