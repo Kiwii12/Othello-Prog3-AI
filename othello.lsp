@@ -88,11 +88,12 @@
     ;ai should make its move
 	;setup, then call minimax
     (let (row column answer newPosition)
-         (print-position position)
+         ;(print-position position)
          (setf answer (minimax position ply player))
          (setf row (nth 1 (nth 0 (cadr answer))))
          (setf column (nth 2 (nth 0 (cadr answer))))
          (setf newPosition (do-move position player row column))
+		 (format t "~%Here is my move: ~S ~S~%" (1+ row) (1+ column))
          (print-position newPosition)
          newPosition
     )
