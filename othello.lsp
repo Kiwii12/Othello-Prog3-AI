@@ -93,7 +93,7 @@
          (setf row (nth 1 (nth 0 (cadr answer))))
          (setf column (nth 2 (nth 0 (cadr answer))))
          (setf newPosition (do-move position player row column))
-         ;(print-position newPosition)
+         (print-position newPosition)
          newPosition
     )
 )
