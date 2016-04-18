@@ -19,7 +19,7 @@
                                                 j))
                     (when succ
                         ; add succ to successors list 
-                        (setf successors (append successors (list (list succ row col))))
+                        (setf successors (append successors (list succ)))
                     )
                 )
             )
@@ -71,7 +71,7 @@
 				)
 				; if spot is empty return succ
 				(when (equal spot '-)
-					(return-from check-direction succ)
+					(return-from check-direction (list succ row col))
 				)
 			)
 			
