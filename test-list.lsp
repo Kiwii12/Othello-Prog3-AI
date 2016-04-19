@@ -46,12 +46,20 @@
                    B W W W W B B W) )
 					
 ;white can move, black can not
-(setf test-list3 '(B B B B B B W W
-                   - B B W W W W B
+(setf test-list3 '(B B B B B B W -
+                   B B B W W W W B
                    W B B W W B B B
                    W B W B B B B B
                    W W B B B B B B
                    W W B B B B B B
-                   W W B B B B B B
+                   W W B B B B W B
                    W W B B B B B B) )
 					
+(setf test-list4 '(B - - - - - - B
+                   - - - - - - - -
+                   - - - - - - - -
+                   - - - - - - - -
+                   - - - - - - - -
+                   - - - - - - - -
+                   - - - - - - - -
+                   B - - - - - - W) )
