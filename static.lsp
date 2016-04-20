@@ -71,12 +71,12 @@
          (if (equal (nth 61 position) color) (setf value (+ value 4)))
          
          ;the edges are also valuable
-         (if (equal (nth 2  position) color) (setf value (+ value 4)))
-         (if (equal (nth 3  position) color) (setf value (+ value 4)))
-         (if (equal (nth 4  position) color) (setf value (+ value 4)))
-         (if (equal (nth 5  position) color) (setf value (+ value 4)))
-         (if (equal (nth 6  position) color) (setf value (+ value 4)))
-         (if (equal (nth 8  position) color) (setf value (+ value 4)))
+         (if (equal (nth 2   position) color) (setf value (+ value 4)))
+         (if (equal (nth 3   position) color) (setf value (+ value 4)))
+         (if (equal (nth 4   position) color) (setf value (+ value 4)))
+         (if (equal (nth 5   position) color) (setf value (+ value 4)))
+         (if (equal (nth 6   position) color) (setf value (+ value 4)))
+         (if (equal (nth 8   position) color) (setf value (+ value 4)))
          (if (equal (nth 15  position) color) (setf value (+ value 4)))
          (if (equal (nth 16  position) color) (setf value (+ value 4)))
          (if (equal (nth 23  position) color) (setf value (+ value 4)))
