@@ -206,10 +206,14 @@
 					)
 					(when playerMoved
 					    ;can't move but other player might be able to
+						(format t "~%No moves available. Turn is forfeit!!!~%")
 					    (setf playerMoved nil)
 					)
 			    )
 				(t
+				    ;reset flag that is used to
+					;check if both players can't move
+				    (setf playerMoved t)
 				    ;check if players turn
 					(when (eq player turn)
 					    ;human's turn
@@ -270,6 +274,7 @@
 					)
 			    )
 				(t
+				    (setf playerMoved t)
 				    ;check if players turn
 					(when (eq player turn)
 					    ;human's turn
