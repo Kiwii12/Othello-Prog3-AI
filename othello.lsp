@@ -89,7 +89,9 @@
 	;setup, then call minimax
     (let (row column answer newPosition)
          ;(print-position position)
-         (setf answer (minimax position ply player))
+         (setf answer ;(minimax state depth color alpha beta is-max)
+               (minimax position ply player -10000 10000 t)
+         )
          (setf row (nth 1 (nth 0 (cadr answer))))
          (setf column (nth 2 (nth 0 (cadr answer))))
          (setf newPosition (do-move position player row column))
