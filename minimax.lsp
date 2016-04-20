@@ -7,7 +7,7 @@ Author: Dr. John M. Weiss
 Class:	SDSM&T CSC447/547 Artificial Intelligence
 Date: 	Spring 2016
 
-Usage:    (minimax position depth)
+Usage:    (minimax position depth color alpha beta)
           where position is the position to be evaluated,
           and depth is the search depth (number of plys).
 
@@ -35,7 +35,7 @@ Functions called:
 (load 'deep-enough.lsp          )
 (load 'swap-color.lsp           )
 
-(defun minimax (position depth color)
+(defun minimax (position depth color alpha beta is-max)
 
     ; if we have searched deep enough, or there are no successors,
     ; return position evaluation and nil for the path
@@ -66,11 +66,30 @@ Functions called:
                 (setq succ-value 
                       (minimax (car successor) 
                                (1- depth) 
-                               (swap-color color)) )
+                               (swap-color color)
+                               alpha beta
+                               (not is-max) 
+                      )
+                )
 
                 ; change sign every ply to reflect alternating selection
                 ; of MAX/MIN player (maximum/minimum value)
                 (setq succ-score (- (car succ-value)))
+                
+                ;set new alpha beta values
+                (if is-max (when (> alpha succ-score) 
+                               (setf alpha succ-score) 
+                           )
+                           (when (< beta  succ-score)
+                               (setf beta  succ-score)
+                           )
+                )
+                
+                ;cut out if needed
+                (when (<= beta alpha) 
+                                 
+                               (return) 
+                )
 
                 ; update best value and path if a better move is found
                 ; (note that path is being stored in reverse order)
