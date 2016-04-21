@@ -469,7 +469,7 @@ Description: runs the Othello game for two humans
 
 
 #| ##########################################################
-        **othello-two-player**
+        **othello**
 
 Author: Jacob St.Amand
 Class:	SDSM&T CSC447/547 Artificial Intelligence
