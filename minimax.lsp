@@ -7,9 +7,13 @@ Author: Dr. John M. Weiss
 Class:	SDSM&T CSC447/547 Artificial Intelligence
 Date: 	Spring 2016
 
-Usage:    (minimax position depth color alpha beta)
+Usage:    (minimax position depth color alpha beta is-max)
           where position is the position to be evaluated,
           and depth is the search depth (number of plys).
+          alpha - beta should be set to  -infinity and 
+          +infinity respectivly for pruning to work 
+          properly. Is-max should be set to t from the intial
+          call as well.
 
 Returns:  (value path)
           where value is the backed-up value from evaluation of leaf nodes,
@@ -26,8 +30,18 @@ Functions called:
 
           (static position color) -
               applies the static evaluation function to the position.
+              
+          (swap-color color) -
+              switches to the opposing color.
 
           Note: these functions may need additional arguments.
+          
+Modifications:
+    The function was adapted to do alpha beta pruning.
+    Many of the function calls were given the option argument color
+        so that they could work for our function calls.
+    A second let statement was added to catch the value from the first
+        generate-successors call to improve efficiency.
 |#
 
 (load 'static.lsp               )

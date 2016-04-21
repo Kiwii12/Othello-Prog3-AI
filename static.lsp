@@ -1,4 +1,38 @@
+#| ########################################################## 
+                  ***** STATIC.LSP *****
+                  
+             determins the value of positions
+########################################################## |#
+
+(load 'check-moves.lsp          )
 (load 'swap-color.lsp           )
+
+
+
+#| ##########################################################
+        **static**
+
+Author: Johnny Ackerman
+Class:	SDSM&T CSC447/547 Artificial Intelligence
+Date: 	Spring 2016
+
+Usage:    (static postion color)
+          where position is the state being evaluated, and
+          color is the current player being evaluated.
+          
+Returns:  value
+          where value is the evaluations of the position
+          
+Functions called:
+          (check-moves position color) -
+            checks for an amount of moves
+          (swap-color color) -
+            changes to opponents color
+          
+          
+Description: determines the color of the human when
+             playing an AI
+######################################################## |#
 (defun static (position color)
     (let ( (value 0) (anti-color (swap-color color)) )
          ;board is 8 by 8
@@ -10,6 +44,7 @@
          (if (equal (nth 56 position) color) (setf value (+ value 200)))
          (if (equal (nth 63 position) color) (setf value (+ value 200)))
          
+         ;these were oddly neccissary to stop the ai from giving up corners
          (if (equal (nth 0  position) anti-color) (setf value (- value 200)))
          (if (equal (nth 7  position) anti-color) (setf value (- value 200)))
          (if (equal (nth 56 position) anti-color) (setf value (- value 200)))
@@ -49,6 +84,8 @@
          (if (equal (nth 36 position) color) (setf value (+ value 2)))
          
          ;its good to keep the spaces outside of the "sweet sixteen"
+         ;Some of these are more valuable then others, thus different
+         ;weight values
          (if (equal (nth 2  position) color) (setf value (+ value 4)))
          (if (equal (nth 5  position) color) (setf value (+ value 4)))
          (if (equal (nth 10 position) color) (setf value (+ value 1)))
@@ -94,11 +131,21 @@
          (if (equal (nth 60  position) color) (setf value (+ value 4)))
          (if (equal (nth 61  position) color) (setf value (+ value 4)))
          
+         ;Please note that much play testing went into this to determine
+         ;the weights of the positions above.
          
          
+         ;actual hueristics
+         
+         
+         ;it turns out that going for the least (especially at the begining)
+         ;helps maintain having a lot of moves and limits opponents moves
          (dolist (element position)
             (if (equal element color) (setf value (- value 1)))    
          )
+         
+         ;subtracts the weighted total of opponent moves
+         (setf value (- value (* 2 (check-moves position color))))
          
          ;force value to be the return
          value
