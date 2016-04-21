@@ -1,5 +1,36 @@
+#| ########################################################## 
+                  ***** DISPLAY-POSITIONS.LSP *****
+                  
+                      displays moves to choose
+########################################################## |#
+
+
 (load 'test-list)
-; returns a list of ((board-list) row col)
+
+
+
+
+#| ##########################################################
+        **display-positions**
+
+Author: Johnny Ackerman (based on Jacobs code in generate-successors)
+Class:	SDSM&T CSC447/547 Artificial Intelligence
+Date: 	Spring 2016
+
+Usage:    (display-positions positions color)
+          where position is the state being evaluated, and
+          color is the current player being evaluated.
+          
+Returns:  new-position
+          positions with + for valid player moves
+          
+Functions called:
+          (valid-move-locations position color row col j) -
+            checks if a move is valid
+          
+          
+Description: displays help for humans to make moves
+######################################################## |#
 (defun display-positions (position color)
     (let ((new-position (copy-list position))
           (succ nil)
@@ -30,6 +61,29 @@
     )
 )
 
+
+
+
+#| ##########################################################
+        **display-positions**
+
+Author: Johnny Ackerman (based on Jacobs code in generate-successors)
+Class:	SDSM&T CSC447/547 Artificial Intelligence
+Date: 	Spring 2016
+
+Usage:    (valid-move-location position color row col direction)
+          where position is the state being evaluated,
+          color is the current player being evaluated, row and col,
+          are the current spot in question, and direction which is
+          the path of (going to be flipped) tiles.
+          
+Returns:  t - valid move
+          nil - invalid move
+          
+          
+          
+Description: checks the validity of a move
+######################################################## |#
 (defun valid-move-location (position color row col direction)
     (let (
            (i nil)

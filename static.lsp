@@ -20,6 +20,9 @@ Usage:    (static postion color)
           where position is the state being evaluated, and
           color is the current player being evaluated.
           
+Returns:  value
+          where value is the evaluations of the position
+          
 Functions called:
           (check-moves position color) -
             checks for an amount of moves
