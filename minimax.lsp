@@ -58,7 +58,9 @@ Modifications:
         (if (or (deepenough depth) ; generate list of sucessor positions
                 (null (setf successors (generate-successors position color)))
             )
-            (list (static position color) nil)
+			;swap-color because previous color made the move that generated this position
+			;negative because the value will be negated as it is passed/returned to the parent node
+            (list (- (static position (swap-color color))) nil)
 
             ; otherwise, generate successors and run minimax recursively
             (let
@@ -92,19 +94,14 @@ Modifications:
                     (setq succ-score (- (car succ-value)))
 
                     ;set new alpha beta values
-                    (if is-max (when (> alpha succ-score) 
+                    (if is-max (when (< alpha succ-score) 
                                    (setf alpha succ-score) 
                                )
-                               (when (< beta  succ-score)
-                                   (setf beta  succ-score)
+                               (when (> beta  (- succ-score))
+                                   (setf beta  (- succ-score))
                                )
                     )
 
-                    ;cut out if needed
-                    (when (<= beta alpha) 
-                                   ;(format t  
-                                   (return) 
-                    )
 
                     ; update best value and path if a better move is found
                     ; (note that path is being stored in reverse order)
@@ -112,6 +109,13 @@ Modifications:
                           (setq best-score succ-score)
                           (setq best-path (cons successor (cdr succ-value)))
                     )
+					
+					;cut out if needed
+                    (when (<= beta alpha) 
+                                   ;(format t  
+                                   (return) 
+                    )
+					
                 )
 
                 ; return (value path) list when done

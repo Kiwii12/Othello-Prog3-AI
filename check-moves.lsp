@@ -8,7 +8,7 @@
 
 
 #| ##########################################################
-        **display-positions**
+        **check-moves**
 
 Author: Johnny Ackerman (based on Jacobs code in generate-successors)
 Class:	SDSM&T CSC447/547 Artificial Intelligence
@@ -26,7 +26,7 @@ Functions called:
             checks if a move is valid
           
           
-Description: returns the cound of possible moves
+Description: returns the count of possible moves
 ######################################################## |#
 (defun check-moves (position color)
     (let ((count 0)
@@ -62,7 +62,7 @@ Description: returns the cound of possible moves
 
 
 #| ##########################################################
-        **display-positions**
+        **valid-movep**
 
 Author: Johnny Ackerman (based on Jacobs code in generate-successors)
 Class:	SDSM&T CSC447/547 Artificial Intelligence

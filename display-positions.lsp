@@ -61,7 +61,7 @@ Description: displays help for humans to make moves
 
 
 #| ##########################################################
-        **display-positions**
+        **valid-move-location**
 
 Author: Johnny Ackerman (based on Jacobs code in generate-successors)
 Class:	SDSM&T CSC447/547 Artificial Intelligence

@@ -169,22 +169,21 @@ Functions called:
           (print-position position) -
             formates a position to be displayed
           
-Description: catches input from a user and uses it to
-             make a move on the board
+Description: Calls minimax to have the AI make a move
 ######################################################## |#
 (defun make-move (position player ply)
     ;ai should make its move
 	;setup, then call minimax
-    (let (row column answer newPosition)
+    (let (row column answer)
          (print-position position)
          (setf answer ;(minimax state depth color alpha beta is-max)
                (minimax position ply player -10000 10000 t)
          )
          (setf row (nth 1 (nth 0 (cadr answer))))
          (setf column (nth 2 (nth 0 (cadr answer))))
-         (setf newPosition (do-move position player row column))
 		 (format t "~%Here is my move: ~S ~S~%" (1+ row) (1+ column))
-         newPosition
+		 ;return board state after move was made
+		 (nth 0 (nth 0 (cadr answer)))
     )
 )
 
@@ -517,7 +516,8 @@ Description: determines the color of the human when
 
 ;---------- code ----------
 (if
-    ;test for argument
+    ;test for command line argument
+	;if one argument then pass to (othello) function
 	(= (length *ARGS*) 1)
 	(othello (first *ARGS*))
 )

@@ -7,7 +7,7 @@
 
 
 #| ########################################################## 
-        **make-move-human**
+        **generate-successors**
 
 Author: Jacob St.Amand
 Class:	SDSM&T CSC447/547 Artificial Intelligence
@@ -15,16 +15,16 @@ Date: 	Spring 2016
 
 Usage:    (generate-successors position color)
           where position is the position to be evaluated,
-          and color is the current player.
+          and color is the player who makes the turn.
           
 Returns;  ((board-list) row col) - boardstate with cordinates
-                    of the next move
+                    of the next move (returns list of this object)
 
 Functions called:
           (check-direction position color row col direction) -
             determines if a move is valid and gets its cordinants
           
-Description: generates possible moves and makes a path of said
+Description: generates possible moves and makes a list of said
              moves with the coordinants required to get there
 ########################################################## |#
 (defun generate-successors (position color)
@@ -74,7 +74,7 @@ Usage:    (check-direction positions color row col direction)
           
 Returns:  (succ row col)
           new position with the row and column to get it
-          nil - not a valid move
+          nil - not a valid move/direction
             
           
 Description: get a new board and coordinats to get it
@@ -157,6 +157,8 @@ Returns:  succ - new position
           nil - invalid
           
 Description: gets a board state for a move if valid
+             similar to check-direction, except used to validate and
+			 execute a move made by human player
 ######################################################## |#
 (defun check-direction-validate-move (position color row col direction)
     (let ((succ (copy-list position))
