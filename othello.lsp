@@ -6,7 +6,6 @@
 
 ;------------- load files -------------
 (load 'minimax)
-(load 'test-list)
 (load 'display-positions.lsp)
 
 ;required empty constructor

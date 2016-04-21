@@ -5,10 +5,6 @@
 ########################################################## |#
 
 
-(load 'test-list)
-
-
-
 
 #| ##########################################################
         **display-positions**
@@ -26,7 +22,7 @@ Returns:  new-position
           
 Functions called:
           (valid-move-locations position color row col j) -
-            checks if a move is valid
+            checks if a move is valid and gets its position
           
           
 Description: displays help for humans to make moves
@@ -77,12 +73,13 @@ Usage:    (valid-move-location position color row col direction)
           are the current spot in question, and direction which is
           the path of (going to be flipped) tiles.
           
-Returns:  t - valid move
+Returns:  (t i) - valid move and where to make it
           nil - invalid move
           
           
           
-Description: checks the validity of a move
+Description: checks if a move can be done and returns its
+             cordinates
 ######################################################## |#
 (defun valid-move-location (position color row col direction)
     (let (

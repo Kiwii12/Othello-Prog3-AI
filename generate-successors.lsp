@@ -1,5 +1,32 @@
+#| ########################################################## 
+                  ***** GENERATE-SUCCESSOR.LSP *****
+                  
+                generates all possible moves of a depth
+########################################################## |#
 
-; returns a list of ((board-list) row col)
+
+
+#| ########################################################## 
+        **make-move-human**
+
+Author: Jacob St.Amand
+Class:	SDSM&T CSC447/547 Artificial Intelligence
+Date: 	Spring 2016
+
+Usage:    (generate-successors position color)
+          where position is the position to be evaluated,
+          and color is the current player.
+          
+Returns;  ((board-list) row col) - boardstate with cordinates
+                    of the next move
+
+Functions called:
+          (check-direction position color row col direction) -
+            determines if a move is valid and gets its cordinants
+          
+Description: generates possible moves and makes a path of said
+             moves with the coordinants required to get there
+########################################################## |#
 (defun generate-successors (position color)
     (let ((successors nil)
           (succ nil)
@@ -31,6 +58,27 @@
 )
 
 
+
+#| ##########################################################
+        **check-direction**
+
+Author: Jacob St.Amand
+Class:	SDSM&T CSC447/547 Artificial Intelligence
+Date: 	Spring 2016
+
+Usage:    (check-direction positions color row col direction)
+          where position is the state being evaluated,
+          color is the current player being evaluated, row and col,
+          are the current spot in question, and direction which is
+          the path of (going to be flipped) tiles.
+          
+Returns:  (succ row col)
+          new position with the row and column to get it
+          nil - not a valid move
+            
+          
+Description: get a new board and coordinats to get it
+######################################################## |#
 (defun check-direction (position color row col direction)
     (let ((succ (copy-list position))
            (i nil)
@@ -90,6 +138,26 @@
     )
 )
 
+
+
+#| ##########################################################
+        **check-direction-validate-move**
+
+Author: Jacob St.Amand
+Class:	SDSM&T CSC447/547 Artificial Intelligence
+Date: 	Spring 2016
+
+Usage:    (check-direction positions color row col direction)
+          where position is the state being evaluated,
+          color is the current player being evaluated, row and col,
+          are the current spot in question, and direction which is
+          the path of (going to be flipped) tiles.
+          
+Returns:  succ - new position 
+          nil - invalid
+          
+Description: gets a board state for a move if valid
+######################################################## |#
 (defun check-direction-validate-move (position color row col direction)
     (let ((succ (copy-list position))
            (i nil)
