@@ -1,6 +1,7 @@
 ;------------- load files -------------
 (load 'minimax)
 (load 'test-list)
+(load 'display-positions.lsp)
 
 (defun othello-init ()
     
@@ -60,6 +61,7 @@
 
 (defun make-move-human (position player)
     (let ((newPosition nil))
+        (print-position (display-positions position player) )
 	    (loop while (null newPosition) do
 		    (if (equal player 'B)
 			    (format t "~%Black's turn.~%")
@@ -74,7 +76,7 @@
 				)
 				(when (not (null newPosition))
 				    (format t "~%")
-					(print-position newPosition)
+					;(print-position newPosition)
 				)
 			)
 		)
@@ -88,7 +90,7 @@
     ;ai should make its move
 	;setup, then call minimax
     (let (row column answer newPosition)
-         ;(print-position position)
+         (print-position position)
          (setf answer ;(minimax state depth color alpha beta is-max)
                (minimax position ply player -10000 10000 t)
          )
@@ -96,7 +98,7 @@
          (setf column (nth 2 (nth 0 (cadr answer))))
          (setf newPosition (do-move position player row column))
 		 (format t "~%Here is my move: ~S ~S~%" (1+ row) (1+ column))
-         (print-position newPosition)
+         ;(print-position newPosition)
          newPosition
     )
 )
@@ -146,7 +148,7 @@
 			)
         )
 		
-		;(print-position state)
+		(print-position state)
 		(format t "~%Game Over!~%")
 		(format t "~%Black: ~S~%White: ~S~%~%" countBlack countWhite)
 		(if (= countBlack countWhite)
@@ -192,7 +194,7 @@
                       - - - - - - - -
                       - - - - - - - -) )
 		;display starting board
-		(print-position boardState)
+		;(print-position boardState)
 		
 		;start game loop
 		(loop 
@@ -255,7 +257,7 @@
                       - - - - - - - -
                       - - - - - - - -) )
 		;display starting board
-		(print-position boardState)
+		;(print-position boardState)
 		
 		;start game loop
 		(loop 
