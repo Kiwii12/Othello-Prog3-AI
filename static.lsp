@@ -44,10 +44,10 @@ Description: determines the color of the human when
 		 (when (> empty-spaces 8)
 			 ;corners are highly valued
 			 ;spot 0, 7, 56, and 63
-			 (if (equal (nth 0  position) color) (setf value (+ value 200)))
-			 (if (equal (nth 7  position) color) (setf value (+ value 200)))
-			 (if (equal (nth 56 position) color) (setf value (+ value 200)))
-			 (if (equal (nth 63 position) color) (setf value (+ value 200)))
+			 (if (equal (nth 0  position) color) (setf value (+ value 500)))
+			 (if (equal (nth 7  position) color) (setf value (+ value 500)))
+			 (if (equal (nth 56 position) color) (setf value (+ value 500)))
+			 (if (equal (nth 63 position) color) (setf value (+ value 500)))
 			 
 			 ;these were oddly neccissary to stop the ai from giving up corners
 			 ;(if (equal (nth 0  position) anti-color) (setf value (- value 200)))
@@ -58,27 +58,27 @@ Description: determines the color of the human when
 			 ;spaces next to the corners are bad
 			 ;spot 1, 6, 8, 9, 14, 15, 48, 49, 54, 55, 57, and 62 
 			 (when (equal (nth 0  position) '-)
-				(if (equal (nth 1  position) color) (setf value (- value 50)))
-				(if (equal (nth 8  position) color) (setf value (- value 50)))
-				(if (equal (nth 9  position) color) (setf value (- value 50)))
+				(if (equal (nth 1  position) color) (setf value (- value 80)))
+				(if (equal (nth 8  position) color) (setf value (- value 80)))
+				(if (equal (nth 9  position) color) (setf value (- value 80)))
 			 )
 			 
 			 (when (equal (nth 7  position) '-)
-				(if (equal (nth 6  position) color) (setf value (- value 50)))
-				(if (equal (nth 14 position) color) (setf value (- value 50)))
-				(if (equal (nth 15 position) color) (setf value (- value 50)))
+				(if (equal (nth 6  position) color) (setf value (- value 80)))
+				(if (equal (nth 14 position) color) (setf value (- value 80)))
+				(if (equal (nth 15 position) color) (setf value (- value 80)))
 			 )
 			 
 			 (when (equal (nth 56 position) '-)
-				(if (equal (nth 48 position) color) (setf value (- value 50)))
-				(if (equal (nth 49 position) color) (setf value (- value 50)))
-				(if (equal (nth 54 position) color) (setf value (- value 50)))
+				(if (equal (nth 48 position) color) (setf value (- value 80)))
+				(if (equal (nth 49 position) color) (setf value (- value 80)))
+				(if (equal (nth 54 position) color) (setf value (- value 80)))
 			 )
 			 
 			 (when (equal (nth 63 position) '-)
-				(if (equal (nth 55 position) color) (setf value (- value 50)))
-				(if (equal (nth 57 position) color) (setf value (- value 50)))
-				(if (equal (nth 62 position) color) (setf value (- value 50)))
+				(if (equal (nth 55 position) color) (setf value (- value 80)))
+				(if (equal (nth 57 position) color) (setf value (- value 80)))
+				(if (equal (nth 62 position) color) (setf value (- value 80)))
 			 )
 			 
 			 
@@ -146,11 +146,12 @@ Description: determines the color of the human when
 			 ;it turns out that going for the least (especially at the begining)
 			 ;helps maintain having a lot of moves and limits opponents moves
 			 (dolist (element position)
-				(if (equal element color) (setf value (- value 1)))    
+				(if (equal element color) (setf value (- value 2)))    
 			 )
 			 
 			 ;subtracts the weighted total of opponent moves
-			 ;(setf value (- value (* 2 (check-moves position color))))
+			 ;(setf value (- value (* 2 (check-moves position anti-color))))
+			 ;(setf value (- value (check-moves position anti-color)))
          )
 		 
 		 (when (<= empty-spaces 8)

@@ -218,7 +218,7 @@ Description: checks if a move is possible
           (col nil))
         ; check each position
         (dotimes (i 64)
-            (when (equal (nth i boardState) color)
+            (when (equal (nth i boardState) '-)
                 (setf row (floor i 8))
                 (setf col (- i (* row 8)))
                 ; check each direction

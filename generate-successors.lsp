@@ -29,26 +29,34 @@ Description: generates possible moves and makes a list of said
 ########################################################## |#
 (defun generate-successors (position color)
     (let ((successors nil)
-          (succ nil)
           (row nil)
           (col nil))
         ; check each position
         (dotimes (i 64)
-            (when (equal (nth i position) color)
+            (when (equal (nth i position) '-)
                 (setf row (floor i 8))
                 (setf col (- i (* row 8)))
-                ; check each direction
-                (dotimes (j 8)
-                    (setf succ (check-direction position
-                                                color
-                                                row
-                                                col
-                                                j))
-                    (when succ
-                        ; add succ to successors list 
-                        (setf successors (append successors (list succ)))
-                    )
-                )
+				
+				(let ((succ nil)
+				      (tempPosition nil))
+				    ;check each direction
+					(dotimes (direction 8)
+						(if (null succ)
+							(setf tempPosition (check-direction position color row col direction))
+							(setf tempPosition (check-direction succ color row col direction))
+						)
+						(if (not (null tempPosition))
+							(setf succ tempPosition)
+						)
+					)
+					
+					(when succ
+						; add succ to successors list 
+						(setf successors (append successors (list(list succ row col))))
+					)
+				)
+				
+				
             )
         )
         
@@ -86,6 +94,16 @@ Description: get a new board and coordinats to get it
 		   (rowOld row)
 		   (colOld col)
            (firstLoop t))
+		   
+		; check if we went off the board
+		(when (or (< row 0)
+				  (> row 7)
+				  (< col 0)
+				  (> col 7))
+			(return-from check-direction nil)
+		)
+		(setf i (+ (* row 8) col))
+		(setf (nth i succ) color)
         
         (loop
             ; look at adjacent spot
@@ -113,13 +131,13 @@ Description: get a new board and coordinats to get it
 			
 			; this gets skipped on the first loop
 			(when (not firstLoop)
-			    ; if spot is same color as player return nil
+			    ; if spot is same color as player return succ
 				(when (equal spot color)
-				    (return-from check-direction nil)
+				    (return-from check-direction succ)
 				)
-				; if spot is empty return succ
+				; if spot is empty return nil
 				(when (equal spot '-)
-					(return-from check-direction (list succ row col))
+					(return-from check-direction nil)
 				)
 			)
 			
