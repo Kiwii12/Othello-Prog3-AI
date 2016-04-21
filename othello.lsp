@@ -1,12 +1,33 @@
+#| ########################################################## 
+                  ***** OTHELLO.LSP *****
+                  
+                 Command line reversy game
+########################################################## |#
+
 ;------------- load files -------------
 (load 'minimax)
 (load 'test-list)
 (load 'display-positions.lsp)
 
+;required empty constructor
 (defun othello-init ()
     
 )
 
+
+
+#| ########################################################## 
+        **print-position**
+
+Author: Jacob St.Amand
+Class:	SDSM&T CSC447/547 Artificial Intelligence
+Date: 	Spring 2016
+
+Usage:    (print-position position)
+          where position is the position to be evaluated.
+          
+Description: Displays a formated game state
+########################################################## |#
 (defun print-position (position)
     (let ((i 0))
 	    (format t "~%")
@@ -23,9 +44,26 @@
 	)
 )
 
-;execute a player entered move
-;return board after move has been made
-;return nil if invalid move
+
+
+#| ##########################################################
+        **do-move**
+
+Author: Jacob St.Amand
+Class:	SDSM&T CSC447/547 Artificial Intelligence
+Date: 	Spring 2016
+
+Usage:    (do-move position player row col)
+          where position is the position to be evaluated,
+          player is the current color, and row and col 
+          are where the next position is being updated
+          
+Returns;  newPosition - updated position after move
+          nil - move was invalid
+          
+Description: updates the game mode for a move at the
+             given cordinants
+########################################################## |#
 (defun do-move (position player row col)
     (let ((newPosition nil)
 	      (tempPosition nil)
@@ -59,6 +97,32 @@
 )
 
 
+
+#| ########################################################## 
+        **make-move-human**
+
+Author: Jacob St.Amand
+Class:	SDSM&T CSC447/547 Artificial Intelligence
+Date: 	Spring 2016
+
+Usage:    (make-move-human position player)
+          where position is the position to be evaluated,
+          and player is the current color.
+          
+Returns;  newPosition - updated position after move
+
+Functions called:
+          (do-move position player row col) -
+            used to update the board with move
+          (print-position position) -
+            formates a position to be displayed
+          (display-positions position player)
+            updates the board to display + where the
+            player has a move
+          
+Description: catches input from a user and uses it to
+             make a move on the board
+########################################################## |#
 (defun make-move-human (position player)
     (let ((newPosition nil))
         (print-position (display-positions position player) )
@@ -76,7 +140,6 @@
 				)
 				(when (not (null newPosition))
 				    (format t "~%")
-					;(print-position newPosition)
 				)
 			)
 		)
@@ -86,6 +149,30 @@
 )
 
 
+
+#| ##########################################################
+        **make-move**
+
+Author: Johnny Ackerman
+Class:	SDSM&T CSC447/547 Artificial Intelligence
+Date: 	Spring 2016
+
+Usage:    (make-move position player ply)
+          where position is the position to be evaluated,
+          player is the current color, and ply is the depth
+          to be searched to.
+          
+Returns;  newPosition - updated position after move
+
+Functions called:
+          (minimax position depth color alpha beta is-max) -
+            determines the move for the AI element
+          (print-position position) -
+            formates a position to be displayed
+          
+Description: catches input from a user and uses it to
+             make a move on the board
+######################################################## |#
 (defun make-move (position player ply)
     ;ai should make its move
 	;setup, then call minimax
@@ -98,11 +185,33 @@
          (setf column (nth 2 (nth 0 (cadr answer))))
          (setf newPosition (do-move position player row column))
 		 (format t "~%Here is my move: ~S ~S~%" (1+ row) (1+ column))
-         ;(print-position newPosition)
          newPosition
     )
 )
 
+
+
+#| ##########################################################
+        **can-move**
+
+Author: Jacob St.Amand
+Class:	SDSM&T CSC447/547 Artificial Intelligence
+Date: 	Spring 2016
+
+Usage:    (can-move boardState color)
+          where boardState is the position to be evaluated,
+          color is the current player.
+          
+Functions called:
+          (check-direction boardState color row col j)
+            looks for a move in a given direction
+          
+Returns;  t - found a move
+          nil - did not find a move
+
+          
+Description: checks if a move is possible
+######################################################## |#
 (defun can-move (boardState color)
     ;basically generate-successors
 	;except return after one move is found
@@ -134,6 +243,26 @@
     )
 )
 
+
+
+#| ##########################################################
+        **game-over**
+
+Author: Jacob St.Amand
+Class:	SDSM&T CSC447/547 Artificial Intelligence
+Date: 	Spring 2016
+
+Usage:    (game-over state)
+          where state is the position to be evaluated,
+          color is the current player.
+          
+Functions called:
+          (print-position position) -
+            formates a position to be displayed
+          
+Description: Determines and displays a winner and exits
+             the game
+######################################################## |#
 (defun game-over (state)
     ;count score and output score and who won
 	(let ((countBlack 0)
@@ -163,6 +292,29 @@
 	)
 )
 
+
+
+#| ##########################################################
+        **start-game**
+
+Author: Jacob St.Amand
+Class:	SDSM&T CSC447/547 Artificial Intelligence
+Date: 	Spring 2016
+
+Usage:    (start-game player)
+          where player is repesentative of the human player
+          
+Functions called:
+          (can-move boardState color)
+            checks if player can move
+          (make-move-human boardState turn)
+            gets the human's move
+          (make-move boardState turn ply)
+            gets the AI's move
+          
+          
+Description: runs the Othello game vs AI
+######################################################## |#
 (defun start-game (player)
     (format t "~%OK! You will be playing ")
     (if (eq player 'B)
@@ -193,8 +345,6 @@
                       - - - - - - - -
                       - - - - - - - -
                       - - - - - - - -) )
-		;display starting board
-		;(print-position boardState)
 		
 		;start game loop
 		(loop 
@@ -238,6 +388,26 @@
 	)
 )
 
+
+
+#| ##########################################################
+        **othello-two-player**
+
+Author: Jacob St.Amand
+Class:	SDSM&T CSC447/547 Artificial Intelligence
+Date: 	Spring 2016
+
+Usage:    (othello-two-player)
+          
+Functions called:
+          (can-move boardState color)
+            checks if player can move
+          (make-move-human boardState turn)
+            gets the human's move
+          
+          
+Description: runs the Othello game for two humans
+######################################################## |#
 (defun othello-two-player ()
     (format t "When asked for you move, please enter the row and column in which you would like to place a ")
 	(format t "stone. Remember, you must outflank at least one of your opponents")
@@ -256,8 +426,6 @@
                       - - - - - - - -
                       - - - - - - - -
                       - - - - - - - -) )
-		;display starting board
-		;(print-position boardState)
 		
 		;start game loop
 		(loop 
@@ -300,6 +468,24 @@
 )
 
 
+#| ##########################################################
+        **othello-two-player**
+
+Author: Jacob St.Amand
+Class:	SDSM&T CSC447/547 Artificial Intelligence
+Date: 	Spring 2016
+
+Usage:    (othello <player>)
+          where player is the color that the user wants to be
+          
+Functions called:
+          (start-game color)
+            starts the othello game
+          
+          
+Description: determines the color of the human when
+             playing an AI
+######################################################## |#
 (defun othello (&optional player)
     (cond
 	    ((equalp player "Black")
