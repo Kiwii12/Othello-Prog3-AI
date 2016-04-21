@@ -1,3 +1,4 @@
+(load 'check-moves.lsp          )
 (load 'swap-color.lsp           )
 (defun static (position color)
     (let ( (value 0) (anti-color (swap-color color)) )
@@ -99,6 +100,8 @@
          (dolist (element position)
             (if (equal element color) (setf value (- value 1)))    
          )
+         
+         (setf value (- value (* 2 (check-moves position color))))
          
          ;force value to be the return
          value
