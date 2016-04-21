@@ -145,7 +145,7 @@ Description: determines the color of the human when
          )
          
          ;subtracts the weighted total of opponent moves
-         (setf value (- value (* 2 (check-moves position color))))
+         (setf value (- value (* 2 (check-moves position anti-color))))
          
          ;force value to be the return
          value
