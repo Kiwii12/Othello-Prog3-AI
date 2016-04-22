@@ -386,6 +386,94 @@ Description: runs the Othello game vs AI
 	)
 )
 
+#| ##########################################################
+        **othello-two-ai**
+
+Author: Jacob St.Amand
+Class:	SDSM&T CSC447/547 Artificial Intelligence
+Date: 	Spring 2016
+
+Usage:    (othello-two-ai player)
+          
+Functions called:
+          (can-move boardState color)
+            checks if player can move
+          (make-move boardState turn ply)
+            gets the AI's move
+          
+          
+Description: runs the Othello game AI vs AI
+######################################################## |#
+(defun othello-two-ai (player)
+    (if (eq player 'B)
+	    (format t "~%Black uses static.lsp~%")
+		(format t "~%White uses static.lsp~%")
+	)
+	(if (eq player 'B)
+	    (format t "~%White uses static2.lsp~%~%")
+		(format t "~%Black uses static2.lsp~%~%")
+	)
+	
+	(let ((turn 'B)
+	      (gameOver nil)
+		  (playerMoved t)
+		  (boardState nil)
+		  (pause nil))
+		  
+		(setf boardState '(- - - - - - - -
+                      - - - - - - - -
+                      - - - - - - - -
+                      - - - W B - - -
+                      - - - B W - - -
+                      - - - - - - - -
+                      - - - - - - - -
+                      - - - - - - - -) )
+		
+		;start game loop
+		(loop 
+		    while (null gameOver) do
+		    ;check if player can't move
+			(cond
+			    ((null (can-move boardState turn))
+				    (when (null playerMoved)
+					    ;last player could not move either
+						;game over
+						(game-over boardState)
+						(setf gameOver t)
+					)
+					(when playerMoved
+					    ;can't move but other player might be able to
+						(format t "~%No moves available. Turn is forfeit!!!~%")
+					    (setf playerMoved nil)
+					)
+			    )
+				(t
+				    ;reset flag that is used to
+					;check if both players can't move
+				    (setf playerMoved t)
+				    ;check if players turn
+					(when (eq player turn)
+					    (format t "~%ai-1 turn~%")
+						(setf *IS-AI-1* t)
+					    (setf boardState (make-move boardState turn 4))
+					)
+					(when (not (eq player turn))
+					    ;use static2.lsp
+						(format t "~%ai-2 turn~%")
+						(setf *IS-AI-1* nil)
+					    (setf boardState (make-move boardState turn 4))
+					)
+				)
+			)
+			;other players turn now
+		    (if (eq turn 'B)
+			    (setf turn 'W)
+				(setf turn 'B)
+			)
+			;(setf pause (read))
+		)
+	)
+)
 
 
 #| ##########################################################
