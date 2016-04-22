@@ -83,8 +83,8 @@ Description: updates the game mode for a move at the
 		;check each direction
 		(dotimes (direction 8)
 		    (if (null newPosition)
-			    (setf tempPosition (check-direction-validate-move position player row col direction))
-				(setf tempPosition (check-direction-validate-move newPosition player row col direction))
+			    (setf tempPosition (check-direction position player row col direction))
+				(setf tempPosition (check-direction newPosition player row col direction))
 			)
 			(if (not (null tempPosition))
 			    (setf newPosition tempPosition)
