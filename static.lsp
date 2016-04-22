@@ -28,7 +28,7 @@ Functions called:
           
 Description: evaluates board state
 ######################################################## |#
-(defun static (position color)
+(defun static-2 (position color)
     (let ( (s-value 0))
          ;board is 8 by 8
          
@@ -55,8 +55,8 @@ Description: evaluates board state
 )
 
 ;another ai attempt
-(defun static-2 (position color)
-    (let ( (value 0) (anti-color (swap-color color)) )
+(defun static (position color)
+    (let ( (value 0) (anti-color (swap-color color)) moves )
          ;board is 8 by 8
          
          ;corners are highly valued
@@ -159,6 +159,11 @@ Description: evaluates board state
          
          ;actual hueristics
          
+         ;subtracts the weighted total of opponent moves
+         (setf value (- value 
+                        (* 2 (setf moves (check-moves position anti-color)))
+                     )
+         )
          
          ;it turns out that going for the least (especially at the begining)
          ;helps maintain having a lot of moves and limits opponents moves
@@ -166,8 +171,8 @@ Description: evaluates board state
             (if (equal element color) (setf value (- value 5)))    
          )
          
-         ;subtracts the weighted total of opponent moves
-         (setf value (- value (* 2 (check-moves position anti-color))))
+         
+         (if (= 0 moves) (setf value (+ value 50)))
          
          ;force value to be the return
          value

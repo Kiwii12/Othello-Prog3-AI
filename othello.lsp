@@ -573,12 +573,12 @@ Description: determines the color of the human when
 				    (setf playerMoved t)
 				    ;check if players turn
 					(when (eq player turn)
-					    ;human's turn
-						(setf boardState (make-move boardState turn 6))
+					    ;first AI turn
+						(setf boardState (make-move boardState turn 4))
 					)
 					(when (not (eq player turn))
 					    ;AI's turn
-					    (setf boardState (make-move-2 boardState turn 4))
+					    (setf boardState (make-move-2 boardState turn 5))
 					)
 				)
 			)
