@@ -513,6 +513,106 @@ Description: determines the color of the human when
 	)
 )
 
+;#|#################################################|#
+;#|#################################################|#
+;#|#################################################|#
+
+;start game reskined to do two ai
+(defun othello-ai (player)
+    (format t "~%OK! AI one is ")
+    (if (eq player 'B)
+	    (format t "Black. ")
+		(format t "White. ")
+	)
+    (format t "AI two is ")
+	(if (eq player 'B)
+	    (format t "Black ")
+		(format t "White ")
+	)
+	(format t "stone. Remember, you must outflank at least one ")
+	(if (eq player 'B)
+	    (format t "White ")
+		(format t "Black ")
+	)
+	(format t "stone, or forfeit your move.~%")
+	(let ((turn 'B)
+	      (gameOver nil)
+		  (playerMoved t)
+		  (boardState nil))
+		  
+		(setf boardState '(- - - - - - - -
+                      - - - - - - - -
+                      - - - - - - - -
+                      - - - W B - - -
+                      - - - B W - - -
+                      - - - - - - - -
+                      - - - - - - - -
+                      - - - - - - - -) )
+		
+		;start game loop
+		(loop 
+		    while (null gameOver) do
+		    ;check if player can't move
+			(cond
+			    ((null (can-move boardState turn))
+				    (when (null playerMoved)
+					    ;last player could not move either
+						;game over
+						(game-over boardState)
+						(setf gameOver t)
+					)
+					(when playerMoved
+					    ;can't move but other player might be able to
+						(format t "~%No moves available. Turn is forfeit!!!~%")
+					    (setf playerMoved nil)
+					)
+			    )
+				(t
+				    ;reset flag that is used to
+					;check if both players can't move
+				    (setf playerMoved t)
+				    ;check if players turn
+					(when (eq player turn)
+					    ;human's turn
+						(setf boardState (make-move boardState turn 6))
+					)
+					(when (not (eq player turn))
+					    ;AI's turn
+					    (setf boardState (make-move-2 boardState turn 4))
+					)
+				)
+			)
+			;other players turn now
+		    (if (eq turn 'B)
+			    (setf turn 'W)
+				(setf turn 'B)
+			)
+		)
+	)
+)
+
+;#| ################################################# |#
+;#| ################################################# |#
+;#| ################################################# |#
+
+;make move calling static-2
+(defun make-move-2 (position player ply)
+    ;ai should make its move
+	;setup, then call minimax
+    (let (row column answer)
+         (print-position position)
+         (setf answer ;(minimax state depth color alpha beta is-max)
+               (minimax-2 position ply player -10000 10000 t)
+         )
+         (setf row (nth 1 (nth 0 (cadr answer))))
+         (setf column (nth 2 (nth 0 (cadr answer))))
+		 (format t "~%Here is my counter move: ~S ~S~%" (1+ row) (1+ column))
+		 ;return board state after move was made
+		 (nth 0 (nth 0 (cadr answer)))
+    )
+)
+
+
 
 ;---------- code ----------
 (if
