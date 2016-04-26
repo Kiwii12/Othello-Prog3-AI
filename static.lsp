@@ -61,10 +61,10 @@ Description: evaluates board state
          
          ;corners are highly valued
          ;spot 0, 7, 56, and 63
-         (if (equal (nth 0  position) color) (setf value (+ value 200)))
-         (if (equal (nth 7  position) color) (setf value (+ value 200)))
-         (if (equal (nth 56 position) color) (setf value (+ value 200)))
-         (if (equal (nth 63 position) color) (setf value (+ value 200)))
+         (if (equal (nth 0  position) color) (setf value (+ value 400)))
+         (if (equal (nth 7  position) color) (setf value (+ value 400)))
+         (if (equal (nth 56 position) color) (setf value (+ value 400)))
+         (if (equal (nth 63 position) color) (setf value (+ value 400)))
          
          ;these were oddly neccissary to stop the ai from giving up corners
          (if (equal (nth 0  position) anti-color) (setf value (- value 200)))
