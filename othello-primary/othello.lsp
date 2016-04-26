@@ -10,7 +10,8 @@
 
 ;required empty constructor
 (defun othello-init ()
-    
+  ;use AI-2 (second static function)
+  (setf *IS-AI-1* nil)
 )
 
 
@@ -458,7 +459,6 @@ Description: runs the Othello game AI vs AI
 					    (setf boardState (make-move boardState turn 4))
 					)
 					(when (not (eq player turn))
-					    ;use static2.lsp
 						(format t "~%ai-2 turn~%")
 						(setf *IS-AI-1* nil)
 					    (setf boardState (make-move boardState turn 4))
