@@ -186,7 +186,7 @@ Description: Calls minimax to have the AI make a move
          (setf column (nth 2 (nth 0 (cadr answer))))
 		 ;return board state after move was made
 		 (nth 0 (nth 0 (cadr answer)))
-         (if (null answer)
+         (if (null (second answer))
              (return-from make-move nil)
              (return-from make-move (list (1+ row) (1+ column)))
          )
@@ -646,11 +646,10 @@ Description: determines the color of the human when
 	)
 )
 
-
 ;---------- code ----------
 (if
     ;test for command line argument
 	;if one argument then pass to (othello) function
-	(= (length *ARGS*) 1)
+	(and (boundp '*ARGS*) (= (length *ARGS*) 1))
 	(othello (first *ARGS*))
 )
