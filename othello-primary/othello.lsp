@@ -150,6 +150,7 @@ Description: catches input from a user and uses it to
 
 
 
+
 #| ##########################################################
         **make-move**
 
@@ -171,8 +172,52 @@ Functions called:
             formates a position to be displayed
           
 Description: Calls minimax to have the AI make a move
+             ***Tournement-version***
 ######################################################## |#
 (defun make-move (position player ply)
+    ;ai should make its move
+	;setup, then call minimax
+    (let (row column answer)
+         ;(print-position position)
+         (setf answer ;(minimax state depth color alpha beta is-max)
+               (minimax position ply player -10000 10000 t)
+         )
+         (setf row (nth 1 (nth 0 (cadr answer))))
+         (setf column (nth 2 (nth 0 (cadr answer))))
+		 ;return board state after move was made
+		 (nth 0 (nth 0 (cadr answer)))
+         (if (null answer)
+             (return-from make-move nil)
+             (return-from make-move (list (1+ row) (1+ column)))
+         )
+    )
+)
+
+
+#| ##########################################################
+        **make-move-ai**
+
+Author: Johnny Ackerman
+Class:	SDSM&T CSC447/547 Artificial Intelligence
+Date: 	Spring 2016
+
+Usage:    (make-move-ai position player ply)
+          where position is the position to be evaluated,
+          player is the current color, and ply is the depth
+          to be searched to.
+          
+Returns;  newPosition - updated position after move
+
+Functions called:
+          (minimax position depth color alpha beta is-max) -
+            determines the move for the AI element
+          (print-position position) -
+            formates a position to be displayed
+          
+Description: Calls minimax to have the AI make a move
+             ***Non-Tournement-version***
+######################################################## |#
+(defun make-move-ai (position player ply)
     ;ai should make its move
 	;setup, then call minimax
     (let (row column answer)
@@ -308,7 +353,7 @@ Functions called:
             checks if player can move
           (make-move-human boardState turn)
             gets the human's move
-          (make-move boardState turn ply)
+          (make-move-ai boardState turn ply)
             gets the AI's move
           
           
@@ -374,7 +419,7 @@ Description: runs the Othello game vs AI
 					)
 					(when (not (eq player turn))
 					    ;AI's turn
-					    (setf boardState (make-move boardState turn 4))
+					    (setf boardState (make-move-ai boardState turn 4))
 					)
 				)
 			)
@@ -399,7 +444,7 @@ Usage:    (othello-two-ai player)
 Functions called:
           (can-move boardState color)
             checks if player can move
-          (make-move boardState turn ply)
+          (make-move-ai boardState turn ply)
             gets the AI's move
           
           
@@ -456,12 +501,12 @@ Description: runs the Othello game AI vs AI
 					(when (eq player turn)
 					    (format t "~%ai-1 turn~%")
 						(setf *IS-AI-1* t)
-					    (setf boardState (make-move boardState turn 4))
+					    (setf boardState (make-move-ai boardState turn 4))
 					)
 					(when (not (eq player turn))
 						(format t "~%ai-2 turn~%")
 						(setf *IS-AI-1* nil)
-					    (setf boardState (make-move boardState turn 4))
+					    (setf boardState (make-move-ai boardState turn 4))
 					)
 				)
 			)

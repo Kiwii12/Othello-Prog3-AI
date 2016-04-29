@@ -170,8 +170,52 @@ Functions called:
             formates a position to be displayed
           
 Description: Calls minimax to have the AI make a move
+             ***Tournement-version***
 ######################################################## |#
 (defun make-move (position player ply)
+    ;ai should make its move
+	;setup, then call minimax
+    (let (row column answer)
+         (print-position position)
+         (setf answer ;(minimax state depth color alpha beta is-max)
+               (minimax position ply player -10000 10000 t)
+         )
+         (setf row (nth 1 (nth 0 (cadr answer))))
+         (setf column (nth 2 (nth 0 (cadr answer))))
+		 ;return board state after move was made
+		 (nth 0 (nth 0 (cadr answer)))
+         (if (null answer)
+             (return-from make-move nil)
+             (return-from make-move (list row col))
+         )
+    )
+)
+
+
+#| ##########################################################
+        **make-move-ai**
+
+Author: Johnny Ackerman
+Class:	SDSM&T CSC447/547 Artificial Intelligence
+Date: 	Spring 2016
+
+Usage:    (make-move position player ply)
+          where position is the position to be evaluated,
+          player is the current color, and ply is the depth
+          to be searched to.
+          
+Returns;  newPosition - updated position after move
+
+Functions called:
+          (minimax position depth color alpha beta is-max) -
+            determines the move for the AI element
+          (print-position position) -
+            formates a position to be displayed
+          
+Description: Calls minimax to have the AI make a move
+             ***Non-Tournement-version***
+######################################################## |#
+(defun make-move-ai (position player ply)
     ;ai should make its move
 	;setup, then call minimax
     (let (row column answer)
@@ -186,7 +230,6 @@ Description: Calls minimax to have the AI make a move
 		 (nth 0 (nth 0 (cadr answer)))
     )
 )
-
 
 
 #| ##########################################################
